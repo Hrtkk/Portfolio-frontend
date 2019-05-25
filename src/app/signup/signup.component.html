@@ -1,0 +1,28 @@
+<mat-card class="signup-form">
+    <mat-card-header>
+        <h2>Signup</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <form (submit)="signUp()" class="signup-form">
+        <mat-form-field class="form-group">
+          <input matInput type="email" [(ngModel)]="credentials.email" placeholder="email" name="email" #email="ngModel">
+        </mat-form-field>
+
+          <mat-form-field class="form-group">
+          <input matInput [(ngModel)]="credentials.firstName" placeholder="firstName" name="firstName" #firstName="ngModel">
+        </mat-form-field>
+
+          <mat-form-field class="form-group">
+            <input matInput [(ngModel)]="credentials.lastName" placeholder="Last Name" name="lastName" #lastName="ngModel">
+          </mat-form-field>
+
+          <mat-form-field class="form-group">
+          <input matInput [(ngModel)]="credentials.userName" placeholder="User Name" name="userName" #userName="ngModel">
+        </mat-form-field>
+        <mat-form-field class="form-group">
+          <input matInput type="password" [(ngModel)]="credentials.password" placeholder="Password" name="password" #password="ngModel">
+        </mat-form-field>
+        <button type="submit" class="signup-btn">Signup</button>
+      </form>
+    </mat-card-content>
+</mat-card>

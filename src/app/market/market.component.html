@@ -1,0 +1,31 @@
+<p>
+  market works!
+</p>
+<button (click)="ClickMe()">ClickMe</button>
+<div class="chart-container" ng-show="graph.visible">
+    <canvas #myChart id="myChart" class="my-4" width="900" height="380">{{myChart}}</canvas>
+</div>
+
+<div>
+    <div style="display: block">
+        <canvas baseChart
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+        </canvas>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
