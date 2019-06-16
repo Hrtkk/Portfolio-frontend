@@ -1,4 +1,17 @@
+.toolbar-header
+    width: 100%
+    grid-area: header
+
+.logout-btn
+    grid-area: btn
+    display: grid
+    width: 100%
+    border: solid white 1px
+
 #toolbar
     background-color: #001628
-    color: white 
-    height: 64px
+    color: white
+    display: grid
+    height: 100%
+    grid-template-columns: 2fr 8fr 1fr
+    grid-template-areas: 'header . btn'    

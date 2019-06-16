@@ -1,94 +1,37 @@
-.profile-content
-    grid-area: header
-    justify-self: center
-
-.profile-avatar
-    grid-area: avatar
-    border: #000 1px solid
-    grid-column: 2/3
-    grid-row: 1/2
-    align-self: center
-    width: 100px
-    margin-left: 40%
-
-
 .item-a
-    grid-area: fname
-    width: 300px
-    margin-left: 20px
-    justify-self: center
-.item-b
-    width: 300px
-    margin-left: 20px
-    grid-area: lname
-    justify-self: center
-
-.item-c
-    width: 300px
-    margin-left: 20px
-    grid-area: email
-    justify-self: center
-.item-d
-    width: 300px
-    margin-left: 20px
-    grid-area: uname
-    justify-self: center
-.item-e
-    width: 300px
-    margin-left: 20px
-    grid-area: mnum
-    justify-self: center
-.item-f
-    width: 300px
-    margin-left: 20px
-    grid-area: adds
-    justify-self: center
-.item-g
-    width: 300px
-    margin-left: 20px
-    grid-area: gen
-    justify-self: center
-.item-h
-    width: 300px
-    margin-left: 20px
-    grid-area: state
-    justify-self: center
-.item-i
-    width: 300px
-    margin-left: 20px
-    grid-area: city
-    justify-self: center
-.item-j
-    width: 300px
-    margin-left: 20px
-    grid-area: pcode
-    justify-self: center
-.item-k
-    width: 300px
-    margin-left: 20px
-    grid-area: dob
-    justify-self: center
-.item-l
-    width: 300px
-    margin-left: 20px
-    grid-area: btn
-    justify-self: end
-
-.profil-form
-    display: grid
-    grid-area: form
-    border: #001628 solid 1px
-    grid-template-columns: 50% 50%
+    grid-area: item-a
     grid-column: 1/2
-    grid-row: 1/2
-    grid-template-areas: "fname lname" "email uname" "mnum adds" "gen state" "city pcode" "dob ." "btn btn"
-
-
-.profile-content
+    margin: 15px
+    // border: solid black 1px
+.item-b
+    grid-area: item-b
+    grid-column: 2/3
+    margin: 15px
+    // border: solid black 1px
+.section-a
     display: grid
-    grid-template-columns: repeat(2, 1fr)
-    border: #000 solid 1px
-.profile-page
+    grid-area: section-a
+    grid-column: 1/2
+    grid-template-columns: 50% 50%
+    grid-template-areas: 'item-a item-b'
+.section-b
+    display: grid
+    grid-area: section-b
+    grid-template-columns: 50% 50%
+    grid-template-areas: 'item-a item-b'
+    grid-column: 2/3
+.section-left
+    grid-area: section-left
     display: flex
     flex-direction: column
-    align-items: center
+.section-right
+    grid-area: section-right
+    display: flex
+    flex-direction: column
+.basic-profile
+    display: grid
+    grid-template-columns: 50% 50%
+    grid-template-areas: 'section-left section-right'
+table
+    width: 100%
+    margin: 15px

@@ -1,25 +1,22 @@
 <div id="Flash-screen">
   <div id="flash-left-section">
-      <div class="flash-card">
-          <img src="../../assets/images/flashGb.jpg" alt="image" id="bg-image">
+      <div class="flash-card">    
           <h1>Zettamine Portfolio</h1>
       </div>
-      <div class="flash-description">
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique facere molestiae dolor iusto, harum error saepe debitis reiciendis repellat ipsum nam excepturi numquam exercitationem cum cumque et atque dolorem quos assumenda laborum magnam explicabo labore incidunt quibusdam. Illum, similique debitis?</p>
-      </div>
-      </div>
+        <div class="flash-description">
+        </div>
+  </div>
 
-  <div class="flash-right-section">
+  <mat-card id="flash-right-section">
     <div *ngIf="hasAccount" id="login-section">
       <app-login></app-login>
-      <p>Dont have an account <button (click)="HasNoAccount()">Signup</button></p>
+      <p>Dont have an account <button class="login-signup" mat-stroked-button color="primary" (click)="HasNoAccount()">Signup</button></p>
     </div>
 
     <div *ngIf="!hasAccount" id="signup-section">
       <app-signup></app-signup>
-      <p>Already have an account <button (click)="HasAccount()">Login</button></p>
+      <p>Already have an account <button mat-stroked-button color="primary"class="login-signup"(click)="HasAccount()">Login</button></p>
     </div>
-
-  </div>
+  </mat-card>
 
 </div>

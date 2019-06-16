@@ -1,13 +1,13 @@
-#container
-    display: flex
-    flex-direction: column
-    height: 800px
-
 #app-header 
-    height: 8%
-
+    grid-area: header
+    height: 80px
 #app-content
-    height: 70%
-
+    grid-area: content
+    height: 860px
 #app-footer
-    height: 22%
+    grid-area: footer
+    
+#container
+    display: grid
+    grid-template-rows: 1fr 16fr 2fr
+    grid-template-areas: 'header content footer'

@@ -1,4 +1,130 @@
-<p>
-  allocations works!
-</p>
-<canvas #canvas></canvas>
+<div class="allocation-container">
+
+  <div class="allocation-piechart">
+    <mat-card class="allocation-piechart">
+      <mat-card-title>
+      Here Goes Line chart
+      </mat-card-title>
+      <mat-card-content>
+          <div id="return-container"></div>
+      </mat-card-content>
+    </mat-card>
+    </div>
+
+
+  <div class="allocation-stocks"> 
+      <div class="net-investment"> 
+        <div id="investment-container" style="height: 100%"></div>
+      </div>
+
+      <div class="net-return"> 
+        <mat-card style="height: 100%; background-color:#9a74e9; ">
+          <mat-card-title>
+            Net Return
+          </mat-card-title>
+          <mat-card-content style="height: 100%">
+              <h2>$ 2548.25</h2>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="stocks-weights"> 
+        <mat-card>
+          <mat-card-title>
+          Here Goes Pie chart
+          </mat-card-title>
+          <mat-card-content>
+            <mat-card>
+                  MSFT
+                  <mat-slider
+                    thumbLabel
+                    [displayWith]="formatLabel"
+                    tickInterval="1000"
+                    min="1"
+                    max="100000">
+                  </mat-slider>
+            </mat-card>
+            
+            <mat-card>
+                  GOOGLE
+                  <mat-slider
+                    thumbLabel
+                    [displayWith]="formatLabel"
+                    tickInterval="1000"
+                    min="1"
+                    max="100000">
+                  </mat-slider>
+               
+            </mat-card>
+
+            <mat-card>
+                  TXN
+                  <mat-slider
+                    thumbLabel
+                    [displayWith]="formatLabel"
+                    tickInterval="1000"
+                    min="1"
+                    max="100000">
+                  </mat-slider>
+            </mat-card>
+            
+            <mat-card>
+                  BITCOIN
+                  <mat-slider
+                    thumbLabel
+                    [displayWith]="formatLabel"
+                    tickInterval="1000"
+                    min="1"
+                    max="100000">
+                  </mat-slider>
+            </mat-card>
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+  </div>
+
+  <div class="alternative-portfolio"> 
+    <mat-card style="background-color: #a1cd39">
+      <mat-card-title>
+      Your Alternative Portfolio may be
+      </mat-card-title>
+      <mat-card-content>
+        <ul>
+          <li>
+            <span>X1</span> 12%
+          </li>
+          <li>
+              <span>X1</span> 45%
+          </li>
+          <li>
+              <span>X1</span> 43%
+          </li>
+        </ul>         
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+
+  <div class="allocation-table-a"> <mat-card>
+      <mat-card-title>
+      Here Goes Pie chart
+      </mat-card-title>
+      <mat-card-content>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus numquam sint earum inventore rem magni laboriosam ducimus cupiditate, distinctio suscipit culpa magnam maiores quo, saepe optio ad nulla facere. Commodi aperiam inventore placeat omnis dignissimos harum magni ad sed deserunt!</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="allocation-table-b"> <mat-card>
+      <mat-card-title>
+      Here Goes Pie chart
+      </mat-card-title>
+      <mat-card-content>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus numquam sint earum inventore rem magni laboriosam ducimus cupiditate, distinctio suscipit culpa magnam maiores quo, saepe optio ad nulla facere. Commodi aperiam inventore placeat omnis dignissimos harum magni ad sed deserunt!</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  
+</div>

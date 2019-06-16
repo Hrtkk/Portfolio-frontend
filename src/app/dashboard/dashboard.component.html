@@ -1,1 +1,41 @@
-<p>Dashboard works!</p>
+<div class="head">
+<h2>Dashboard</h2>
+</div>
+<div class="stock-carousel">
+    <button class ="carousel-left-btn" (click)="prev()">prev</button>    
+    <ng-container #vc class="stockcarousel"></ng-container>
+    <button class ="carousel-right-btn" (click)="next()">next</button>
+    <div class="stock-bottom">
+    </div>
+</div>
+
+<ng-template #tpl >
+    <mat-card class="stock-init">
+        <mat-card class="card-stock" *ngFor="let h of hero">
+            <mat-card-title >
+                <h3>{{h.id}}</h3>
+            </mat-card-title>
+            <mat-card-content>
+                <p>{{h.name}}</p>
+            </mat-card-content>
+        </mat-card>
+    </mat-card>
+</ng-template>    
+
+<div>
+    <mat-tab-group class="dashboard-tab">
+        <mat-tab label="Chart">
+                <app-chart></app-chart>
+       </mat-tab>   
+        <mat-tab label="Summary">
+                <app-summary> </app-summary>
+        </mat-tab> 
+        <mat-tab label="Conversation">
+                   
+        </mat-tab>
+        <mat-tab label="Historical Data">
+           
+        </mat-tab>
+    </mat-tab-group>
+</div>
+

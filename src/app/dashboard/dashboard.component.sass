@@ -1,3 +1,98 @@
-.sidenav
-    width: 200px
-    
+.head
+    display: grid
+    align-item: center
+    color: #022b3f
+h2
+    border: solid none 1px
+    font-size: 30px
+    justify-self: center
+    padding-left: 20px
+    padding-right: 20px
+    padding-bottom: 5px
+    padding-top: 5px
+    // background-color: #fdf0f2
+
+
+.stock-init
+    display: flex
+    flex-direction: row
+    align-content: stretch
+    background-color: #022b3f
+
+
+.card-stock
+    background-color: #bfffbf
+    color: #00bb45
+    // margin: 10px
+    width: 140px
+    height: 120px
+    margin-right: 20px
+    margin-left: 20px
+
+.carousel-left-btn
+    grid-area: item-a
+    grid-template: 1/2
+    grid-row: 1/2
+    background-color: #bfffbf
+    border-style: none
+    height: 60px
+    margin-left: 10px
+    text-align: center
+    width: 60px
+    font-size: 20px
+    opacity: 0.8
+    align-self: center
+    border-radius: 50%
+   
+.stockcarousel
+    grid-area: item-b
+    grid-template: 2/3
+    grid-row: 1/2
+    border: black solid 5px
+    background-color: blue
+
+.carousel-right-btn
+    grid-area: item-c
+    grid-template: 3/4
+    grid-row: 1/2
+    background-color: #bfffbf
+    border-style: none
+    height: 60px
+    text-align: center
+    width: 60px
+    font-size: 20px
+    margin-left: 10px
+    opacity: 0.8
+    align-self: center
+    border-radius: 50%
+    // border: black solid 1px
+   
+.dashboard-tab
+    margin-top: 30px
+    margin-left: 30px
+    width: 700px
+    height: 600px
+
+.stock-bottom
+    grid-area: item-d
+    grid-template: 1/4
+    grid-row: 2/3
+    // margin-bottom: 0px
+    // background-color: blue
+    // height: 100%
+
+mat-tab
+    font-size: 20px
+    width: 40px
+
+
+.stock-carousel
+    margin: 20px
+    color: white
+    background-color: #022b3f
+    // background-color: blue
+    display: grid
+    grid-template-columns: 10% 80% 10%
+    grid-template-rows: 70% 30%
+    grid-template-areas: 'item-a item-b item-c' 'item-d item-d item-d'
+    height: 300px

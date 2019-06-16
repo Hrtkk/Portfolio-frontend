@@ -1,4 +1,13 @@
 <mat-toolbar id="toolbar">
-    <span>My Application</span>
+  <div class="toolbar-header">
+    <span>Portfolio Management</span>
+  </div>
+  <div *ngIf="loggedin == true" class="logout-btn">
+    <button mat-button [matMenuTriggerFor]="belowMenu">Profile</button>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+      <button mat-menu-item>Your Profile</button>
+      <button mat-menu-item>Logout</button>
+    </mat-menu>  
+  </div>
   </mat-toolbar>
   

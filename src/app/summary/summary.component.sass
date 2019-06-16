@@ -1,0 +1,40 @@
+.section-a
+    grid-area: a
+    grid-column: 1/2
+
+.section-b
+    grid-column: 2/3
+    grid-area: b
+
+.sa
+    grid-column: 1/2
+    grid-area: item-a
+    justify-self: start
+.sb
+    grid-area: item-b
+    grid-column: 2/3
+    justify-self: end
+li
+    display: grid
+    grid-template-columns: 50% 50%
+    grid-template: 'item-a item-b'
+
+.left-section
+    display: grid
+    grid-template-columns: 50% 50%
+    grid-template-areas: 'a b'
+    grid-column: 1/2
+    grid-area: summary
+
+.chartSection
+    margin: 15px
+    grid-area: chart
+    grid-column: 2/3
+    height: 100%
+
+.summary
+    display: grid
+    grid-template-columns: 40% 60%
+    grid-template-areas: 'summary chart'
+    height: 100%
+    overflow: hidden

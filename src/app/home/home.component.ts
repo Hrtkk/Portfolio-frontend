@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Routes } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-home',
@@ -8,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   constructor() { }
-  navbtnvalue = 'profile';
+  navbtnvalue = 'dashboard';
 
   ngOnInit() {
   }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -12,20 +13,8 @@ export class AppComponent {
   employeeData: JSON;
 
   title = 'Portfolio-frontend';
-
+  faCoffee = faCoffee;
+  
   constructor(private httpClient: HttpClient) {}
 
-  sayHi() {
-    this.httpClient.get('http://127.0.0.1:5000/').subscribe(data => {
-      this.serverData = data as JSON;
-      console.log(this.serverData);
-    });
-  }
-
-  getAllEmoloyee() {
-    this.httpClient.get('http://127.0.0.1:5000/').subscribe(data => {
-      this.employeeData = data as JSON;
-      console.log(this.employeeData);
-    });
-  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SignupService, TokenPayLoad } from './signup.service';
+import { AuthenticationService, TokenPayload } from '../services/authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 
@@ -13,7 +13,7 @@ import { User } from '../models/user';
 export class SignupComponent implements OnInit {
 
 
-  credentials: TokenPayLoad = {
+  credentials: TokenPayload = {
       _id: '',
       userName: '',
       email: '',
@@ -23,14 +23,14 @@ export class SignupComponent implements OnInit {
   };
   constructor(
     private httpClient: HttpClient,
-    private signupService: SignupService
+    private signupService: AuthenticationService
   ) { }
 
   ngOnInit() {
   }
 
     signUp() {
-    this.signupService.registerUser(this.credentials).subscribe(data => {
+    this.signupService.register(this.credentials).subscribe(data => {
       // this.serverData = data;
       console.log(data);
     }, error => console.log(error));

@@ -1,38 +1,72 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherService } from '../services/weather.service';
 import { Chart } from 'chart.js';
+import { AuthenticationService } from '../services/authentication.service';
+
+export interface PeriodicElement {
+name: string;
+position: number;
+weight: number;
+symbol: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+{position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+{position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+{position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+{position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+{position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
+{position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
+{position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+{position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+{position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
+{position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+];
+
 @Component({
   selector: 'app-market',
   templateUrl: './market.component.html',
   styleUrls: ['./market.component.sass']
 })
 export class MarketComponent implements OnInit {
-
+    displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+    dataSource = ELEMENT_DATA;
     myChart: any;
-  constructor(private weatherAPI: WeatherService) { }
-
+    data: any = '';
+    pieData: [];
+    pieLabel: [];
+    histX:[];
+    histY:[];
+  constructor(
+              private authservice: AuthenticationService
+            ) { }
 
     public barChartOptions = {
         scaleShowVerticalLines: false,
         responsive: true
     };
-    public barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+    public barChartLabels: [];
     public barChartType = 'bar';
     public barChartLegend = true;
-    public barChartData = [
-        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-        {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
-    ];
-  ngOnInit() {
+    public barChartData: [{data:[], label: string}];
+
+    ngOnInit() {
+      this.authservice.getProfileInfo().subscribe(data => {
+        this.histX = data.map(s => s.TransactionDate);
+        this.histY = data.map(s => s.NumberOfShares);
+        this.barChartLabels = this.histX;
+        this.barChartData = [
+            {data: this.histY, label: 'Series A'},
+        ];
+      });
       const canvas: any = document.getElementById('myChart');
       const ctx = canvas.getContext('2d');
       this.myChart = new Chart(ctx, {
           type: 'pie',
           data: {
-              labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+              labels: this.histX,
               datasets: [{
                   label: '# of Votes',
-                  data: [12, 19, 3, 5, 2, 3],
+                  data: this.histY,
                   backgroundColor: [
                       '#111222',
                       '#722712',
@@ -63,6 +97,7 @@ export class MarketComponent implements OnInit {
           }
       });
   }
+  
       //     this.weatherAPI.fetchData().subscribe(data => {
       //     console.log(data['Time Series (Daily)']['2018-12-28']['1. open']);
       //     const openPrice = data['Time Series (Daily)']['2018-12-28']['1. open'];
@@ -73,11 +108,7 @@ export class MarketComponent implements OnInit {
       //     console.log(openPrice, highestPrice, lowPrice, closePrice, volume);
       //     // let d = data.map(data => )
       //      });
-  ClickMe() {
-      this.weatherAPI.fetchData().subscribe(data => {
-          console.log(data);
-      });
-
+   ClickMe() {
+     
   }
-
 }

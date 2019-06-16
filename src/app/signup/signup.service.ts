@@ -4,14 +4,15 @@ import { HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/ht
 
 import { Observable, throwError } from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
+import { getToken } from '@angular/router/src/utils/preactivation';
 
 
-const httpOptions = {
-    headers : new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'my-auth-token'
-    })
-};
+// const httpOptions = {
+//     headers : new HttpHeaders({
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${tokenParse}`
+//     })
+// };
 interface TokenResponse {
   token: string;
 }
@@ -46,7 +47,7 @@ export class SignupService{
     }
     registerUser(user: TokenPayLoad): Observable<any> {
 
-      const base = this.http.post('users/register', user);
+      const base = this.http.post('http://localhost:5000/users/register', user);
       const request = base.pipe(
           map((data: TokenResponse) => {
             if (data.token) {
@@ -58,7 +59,7 @@ export class SignupService{
       return request;
     }
 
-
+   
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occured. Handle it accordingly.
