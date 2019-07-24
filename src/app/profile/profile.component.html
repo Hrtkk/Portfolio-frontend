@@ -61,7 +61,7 @@
         </mat-tab> 
                
         <mat-tab label="Risk"> 
-         
+         <app-risk-profile [riskProfile]="riskProfile"></app-risk-profile>
         </mat-tab>
         <mat-tab label="Transactions">
             <table mat-table [dataSource]="userTrans" class="mat-elevetion-z8">

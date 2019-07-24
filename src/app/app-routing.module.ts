@@ -10,15 +10,15 @@ import { AllocationsComponent } from './allocations/allocations.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 // import { guard } from './auth/auth.guard'
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: FlashScreenComponent },
-  { path: '',
-    redirectTo: 'zettamine',
-    pathMatch: 'full'
+  { path: 'home', component: HomeComponent , canActivate: [AuthGuard] },
+  { path: '', component: FlashScreenComponent, canActivate: [AuthGuard] },
+  { path: '**',
+    redirectTo: '',
   },
-  { path: 'home', component: HomeComponent },  
-  
+
 ];
 
 @NgModule({

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { HttpHeaders } from '@angular/common/http';
 import { getToken } from '@angular/router/src/utils/preactivation';
-
+import { AuthGuard } from '../auth/auth.guard';
 export interface UserDetails {
   _id: string;
   firstName: string;
@@ -40,7 +40,8 @@ export class AuthenticationService {
       private token: string;
       constructor(
         private http: HttpClient,
-        private router: Router
+        private router: Router,
+        // private authService: AuthGuard,
       ) {}
       private saveToken(token: string): void {
         localStorage.setItem('userToken', token);
@@ -68,12 +69,28 @@ export class AuthenticationService {
         }
       }
 
-      public isLoggedIn(): boolean {
+      public isLoggedIn(url: string): boolean {
+        // console.log('user is requesting to login');
         const user = this.getUserDetails();
+        console.log('requesting end point', user);
         if (user) {
-          return user.exp > Date.now() / 1000
+          // this.router.navigate(['/home']);
+          console.log('User exist', user)
+          if (url === '/home'){
+            console.log(url);
+            return true;
+          }
+          this.router.navigate(['home']);
+          return true;
 
         } else {
+          // this.authService.redirectUrl = url;
+          console.log('user does not exist')
+          // Navigate to the login page with extras
+          if(url === '/'){
+            return true;
+          }
+          this.router.navigate(['/']);
           return false;
         }
       }
@@ -118,6 +135,7 @@ export class AuthenticationService {
             // console.log(data)
             if (data.access_token) {
               this.saveToken(data.access_token);
+              this.router.navigate(['/home']);
             }
             return data;
           })
@@ -129,39 +147,45 @@ export class AuthenticationService {
         this.token = '';
         window.localStorage.removeItem(('userToken'));
         this.router.navigateByUrl('/');
+        console.log('user loggout')
       }
 
-      
+      public getReturns() {
+        const tokenParse = this.getToken();
+        // console.log(localStorage)
+        const httpOptions = {
+            headers : new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${tokenParse}`
+            })
+        };
+        const base = this.http.get('http://localhost:5000/users/return', httpOptions);
+        const request = base.pipe(
+            map((data: any) => {
+              console.log(data);
+              return data;
+            })
+          );
+        return request;
+      }
+
+      getSuggestion(numStk: number) {
+        const tokenParse = this.getToken();
+        const httpOptions = {
+            headers : new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${tokenParse}`
+
+              })
+        };
+        const base = this.http.post('http://localhost:5000/users/suggestion',  {'stkNum': numStk}, httpOptions);
+        const request = base.pipe(
+            map((data: any) => {
+              console.log(data);
+              return data;
+            })
+          );
+        return request;
+      }
 
 }
-// private currentUserSubject: BehaviorSubject<User>;
-    // public currentUser: Observable<User>;
-    //
-    // constructor(private http: HttpClient) {
-    //     this.currentUserSubject = new BehaviorSubject<User> (JSON.parse(localStorage.getItem('currentUser')));
-    //     this.currentUser = this.currentUserSubject.asObservable();
-    // }
-    //
-    // public get currentUserValue(): User {
-    //     return this.currentUserSubject.value;
-    // }
-    //
-    // login(username: string, password: string) {
-    //     return this.http.post<any>(`https://localhost:5000/users/authenticate`, { username, password })
-    //         .pipe(map(user => {
-    //             // login successful if there's a jwt token in the response
-    //             if (user && user.token) {
-    //                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-    //                 localStorage.setItem('currentUser', JSON.stringify(user));
-    //                 this.currentUserSubject.next(user);
-    //             }
-    //
-    //             return user;
-    //         }));
-    // }
-    //
-    // logout() {
-    //     // remove user from local storage to log user out
-    //     localStorage.removeItem('currentUser');
-    //     this.currentUserSubject.next(null);
-    // }

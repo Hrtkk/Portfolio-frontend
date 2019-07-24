@@ -1,17 +1,17 @@
-<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav class="sidenav" opened mode="side">
-      
-      <nav id="side-Nav">
-        <ul class="side-nav-list">
-          <button class="side-nav-btn" mat-raised-button (click)="clickMe('dashboard')">Dashboard </button>
-          <button class="side-nav-btn" mat-raised-button (click)="clickMe('allocation')">Allocation </button>
-          <button class="side-nav-btn" mat-raised-button (click)="clickMe('market')">Market   </button>
-          <button class="side-nav-btn" mat-raised-button (click)="clickMe('profile')">Profile</button>
-          <button class="side-nav-btn" mat-raised-button (click)="clickMe('about')">About</button>
-        </ul>
-      </nav>
-    </mat-sidenav>
+<mat-toolbar class="secondry-toolbar">
+    <nav id="side-Nav">
+      <ul class="side-nav-list">
+        <button class="side-nav-btn" mat-raised-button (click)="clickMe('dashboard')">Dashboard </button>
+        <button class="side-nav-btn" mat-raised-button (click)="clickMe('allocation')">Allocation </button>
+        <button class="side-nav-btn" mat-raised-button (click)="clickMe('market')">Market   </button>
+        <button class="side-nav-btn" mat-raised-button (click)="clickMe('profile')">Profile</button>
+        <button class="side-nav-btn" mat-raised-button (click)="clickMe('about')">About</button>
+      </ul>
+    </nav>
+  </mat-toolbar>
 
+<mat-sidenav-container class="sidenav-container">
+  
     <mat-sidenav-content class="main-content">
       <div [ngSwitch]="navbtnvalue">
         <app-dashboard *ngSwitchCase="'dashboard'"></app-dashboard>

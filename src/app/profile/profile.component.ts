@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
     userProfile:payload;
     transaction: Transactions[];
     userTrans: Transactions[];
+    riskProfile: number[];
     displayedColumns: string[] = ['TransactionId', 'Ticker', 'Transaction Date', 'Transaction Type', 'Number of Shares'];
     profileForm    =  new FormGroup({
           FirstName      :  new FormControl(''),
@@ -39,16 +40,13 @@ export class ProfileComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-      // this.userTrans = TRANSACTIONS;
       this.authservice.getProfileInfo().subscribe(data => {
-        // console.log(data);
-        // console.log(data['userData']);
-        console.log(JSON.parse(data['Transactions']));
+        console.log(data);
 
         this.userProfile = JSON.parse(data['userData']);
-        // this.userTrans = JSON.parse(data['Transactions']);
-        this.userTrans = JSON.parse(data['Transactions'])
-        console.log(this.userTrans)
+        this.userTrans = JSON.parse(data['Transactions']);
+        this.riskProfile = data['riskProfile'];
+        console.log(this.riskProfile);
       });
   }
   onSubmit() {

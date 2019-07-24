@@ -5,10 +5,10 @@
     <mat-card-content class="login-content">
         <form (submit)="Login()" class="login-form">
             <mat-form-field class="form-group">
-                <input matInput type="email" [(ngModel)]="credentials.email" placeholder="email" name="email" #email="ngModel">
+                <input class="input-email" matInput type="email" [(ngModel)]="credentials.email" placeholder="email" name="email" #email="ngModel">
             </mat-form-field>
             <mat-form-field class="form-group">
-                <input matInput type="password" [(ngModel)]="credentials.password" placeholder="Password" name="password" #password="ngModel">
+                <input matInput class="input-pass" type="password" [(ngModel)]="credentials.password" placeholder="Password" name="password" #password="ngModel">
             </mat-form-field>
             <button type="submit" class="login-btn" mat-raised-button color="primary">LogIn</button>
         </form>

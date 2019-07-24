@@ -35,6 +35,7 @@ import { RiskProfileComponent } from './risk-profile/risk-profile.component';
 import { TransactionProfileComponent } from './transaction-profile/transaction-profile.component';
 import { QuestionComponent } from './question/question.component';
 import { HomeChildModule } from './home/home-child.module';
+import { PortfolioModule } from './portfolio/portfolio.module';
 // import { HomeChildRoutingModule } from './home/HomeChildRoutingModule';
 
 @NgModule({
@@ -87,6 +88,7 @@ import { HomeChildModule } from './home/home-child.module';
         MatSelectModule,
         MatSliderModule,
         HomeChildModule,
+        PortfolioModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

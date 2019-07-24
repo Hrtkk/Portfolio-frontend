@@ -1,16 +1,19 @@
-<div [formGroup]="form">
-  <label [attr.for]="question.key">{{question.label}}</label>
-
+<mat-form-field [formGroup]="form" class="question-field">
+   <div>
+      <mat-label class="question-head" [attr.for]="question.key">{{question.key}}</mat-label>
+      <br>
+    </div>  
+    <div>
+        <mat-label class="question-label" [attr.for]="question.key">{{question.label}}</mat-label>
+    </div>
+    
   <div [ngSwitch]="question.controlType">
-
-    <input *ngSwitchCase="'textbox'" [formControlName]="question.key"
+    <input *ngSwitchCase="'textbox'" formControlName="question.key"
             [id]="question.key" [type]="question.type">
-
-    <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
-      <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
-    </select>
-
+    <mat-select class="question-option-head"[(ngModel)]="selected" [id]="question.key" *ngSwitchCase="'dropdown'" [formControl]="val">
+      <mat-option style="line-height: 1em" class="question-option" *ngFor="let opt of question.options" [value]="opt.id">
+        {{opt.key}}
+      </mat-option>
+    </mat-select>
   </div> 
-
-  <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>
-</div>
+</mat-form-field>

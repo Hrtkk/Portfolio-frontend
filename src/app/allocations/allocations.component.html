@@ -1,39 +1,34 @@
 <div class="allocation-container">
 
   <div class="allocation-piechart">
-    <mat-card class="allocation-piechart">
-      <mat-card-title>
-      Here Goes Line chart
-      </mat-card-title>
-      <mat-card-content>
-          <div id="return-container"></div>
-      </mat-card-content>
-    </mat-card>
+    <h2>Here Goes Line chart</h2>
+      <div id="return-container"></div>
     </div>
 
 
   <div class="allocation-stocks"> 
       <div class="net-investment"> 
-        <div id="investment-container" style="height: 100%"></div>
+        <div id="investment-container" style="height: 100%;"></div>
       </div>
 
       <div class="net-return"> 
-        <mat-card style="height: 100%; background-color:#9a74e9; ">
+
+    <mat-card style="height: 100%;  ">
           <mat-card-title>
             Net Return
           </mat-card-title>
           <mat-card-content style="height: 100%">
-              <h2>$ 2548.25</h2>
+              <h2>{{netReturn}}</h2>
           </mat-card-content>
         </mat-card>
       </div>
 
-      <div class="stocks-weights"> 
-        <mat-card>
+      <div class="stocks-weights" style="background-color: #f0fcf0">  
+        <mat-card style="background-color: #f0fcf0">
           <mat-card-title>
           Here Goes Pie chart
           </mat-card-title>
-          <mat-card-content>
+          <mat-card-content style="background-color: #f0fcf0">
             <mat-card>
                   MSFT
                   <mat-slider
@@ -85,46 +80,72 @@
   </div>
 
   <div class="alternative-portfolio"> 
-    <mat-card style="background-color: #a1cd39">
-      <mat-card-title>
+    
+    <h2 class="head-portfolio">
       Your Alternative Portfolio may be
-      </mat-card-title>
-      <mat-card-content>
-        <ul>
-          <li>
-            <span>X1</span> 12%
-          </li>
-          <li>
-              <span>X1</span> 45%
-          </li>
-          <li>
-              <span>X1</span> 43%
-          </li>
-        </ul>         
-      </mat-card-content>
-    </mat-card>
-  </div>
-
-
-  <div class="allocation-table-a"> <mat-card>
-      <mat-card-title>
-      Here Goes Pie chart
-      </mat-card-title>
-      <mat-card-content>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus numquam sint earum inventore rem magni laboriosam ducimus cupiditate, distinctio suscipit culpa magnam maiores quo, saepe optio ad nulla facere. Commodi aperiam inventore placeat omnis dignissimos harum magni ad sed deserunt!</p>
-      </mat-card-content>
-    </mat-card>
-  </div>
-
-  <div class="allocation-table-b"> <mat-card>
-      <mat-card-title>
-      Here Goes Pie chart
-      </mat-card-title>
-      <mat-card-content>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus numquam sint earum inventore rem magni laboriosam ducimus cupiditate, distinctio suscipit culpa magnam maiores quo, saepe optio ad nulla facere. Commodi aperiam inventore placeat omnis dignissimos harum magni ad sed deserunt!</p>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  
-  
+    </h2>  
+    <div class="diversivifaction-form">    
+        <form (submit)="submit()"> 
+          <mat-form-field style="width: 250px;">
+            <input class="numStock" style="width: 300px;" type="number" matInput [(ngModel)]="numStock" min="0" max="10" placeholder="Number of stocks you wanted to check" name="stk" #stk="ngModel">
+          </mat-form-field>
+          <button type="submit" class="stk-btn" mat-raised-button color="primary">Submit</button>
+        </form>
+      </div>
+      
+        <div class="allocation-table-a"> <mat-card>
+            <mat-card-title>
+            Min Risk Portfolio
+            </mat-card-title>
+            <mat-card-content>
+                      
+                <div>
+                  <div id="min-var-Pie" style="height: 300px;"></div>
+                    <table mat-table [dataSource]="min_var_portfolio1" class="mat-elevation-z8">
+                        <ng-container matColumnDef="item">
+                          <th mat-header-cell *matHeaderCellDef> Item </th>
+                          <td mat-cell *matCellDef="let term"> {{term.item}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="value">
+                          <th mat-header-cell *matHeaderCellDef> Value </th>
+                          <td mat-cell *matCellDef="let term"> {{term.val}} </td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                      </table>
+                </div>
+                
+            </mat-card-content>
+          </mat-card>
+        </div>
+      
+        <div class="allocation-table-b"> <mat-card>
+            <mat-card-title>
+            If you want a little bit high risk
+            </mat-card-title>
+            <mat-card-content>
+                
+              <div>
+                <div id="sharpe-Pie" style="height: 300px;"></div>
+                  <table mat-table [dataSource]="sharp_portfolio1" class="mat-elevation-z8">
+                      <ng-container matColumnDef="item">
+                        <th mat-header-cell *matHeaderCellDef> Item </th>
+                        <td mat-cell *matCellDef="let term"> {{term.item}} </td>
+                      </ng-container>
+                    
+                      <ng-container matColumnDef="value">
+                        <th mat-header-cell *matHeaderCellDef> Value </th>
+                        <td mat-cell *matCellDef="let term"> {{term.val}} </td>
+                      </ng-container>
+                    
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+              </div>
+      
+            </mat-card-content></mat-card>
+        </div>        
+      </div>
 </div>

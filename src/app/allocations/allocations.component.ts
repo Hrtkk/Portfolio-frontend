@@ -3,6 +3,15 @@ import { Input, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import {fromEvent} from 'rxjs';
 import {pairwise, switchMap, takeUntil} from 'rxjs/operators';
 import * as Highcharts from 'highcharts';
+import { chart } from 'highcharts';
+import { AuthenticationService } from '../services/authentication.service';
+// import { Highcharts.SeriesColumnOptions } from 'highcharts'
+export interface SERIES {
+    name: string;
+    type: 'line';
+    data: number[];
+}
+
 
 @Component({
   selector: 'app-allocations',
@@ -12,23 +21,73 @@ import * as Highcharts from 'highcharts';
 export class AllocationsComponent implements OnInit, AfterViewInit {
 
     // a reference to the canvas element from our template
-    @ViewChild('canvas') public canvas: ElementRef;
+    // @ViewChild('canvas') public canvas: ElementRef;
     @Input() public width = 400;
     @Input() public height = 400;
-    private cx: CanvasRenderingContext2D;
 
-    constructor() { }
+    // lineChart: Highcharts.ChartObject;
+    ob1: Highcharts.Chart;
+    ob2: Highcharts.Chart;
+    ob3: Highcharts.Chart;
+    ob4: Highcharts.Chart;
+
+    // private cx: CanvasRenderingContext2D;
+    numStock: number;
+    Data: SERIES[];
+    data: SERIES;
+    displayedColumns = ['item', 'value'];
+    netReturn: number;
+    sharp_portfolio: any;
+    min_var_portfolio: any;
+
+    sharp_portfolio1: any;
+    min_var_portfolio1: any;
+    return_series: any;
+    series_index: any;
+    pieSeries: any;
+    constructor(
+        private authService: AuthenticationService,
+    ) { }
 
     ngOnInit() {
+        this.numStock = 0;
+        this.Data = []
+        this.authService.getReturns().subscribe(data => {
+            console.log(data);
+            this.netReturn = data['netReturn']
+            this.return_series = data['stock_return']
+            this.series_index = data['index']
+            this.pieSeries = data['pieSeries']
+
+            let p = []
+            
+            // for( let i in this.)
+
+
+            // tslint:disable-next-line: forin
+            for (let i in this.pieSeries) {
+                p.push({name: this.pieSeries[i]['symbol'], y: this.pieSeries[i]['share']});
+            }
+
+            this.ob2.addSeries({type: 'pie', name: 'share', data: p});
+            // tslint:disable-next-line: forin
+            for (let i in this.return_series) {
+                let p = this.return_series[i];
+                this.ob1.addSeries({type: 'line', colorByPoint: true, name: i, data: p});
+            }
+        });
     }
 
     ngAfterViewInit() {
-        Highcharts.chart('return-container', {
+        const lineOptions: Highcharts.Options = {
             title: {
-                text: 'Your returns, 2007-2017'
+                text: 'Your price of Shares, 2007-2017'
             },
             subtitle: {
                 text: 'Source: Zettamine.com'
+            },
+            xAxis: {
+                categories: this.series_index
             },
             yAxis: {
                 title: {
@@ -45,14 +104,10 @@ export class AllocationsComponent implements OnInit, AfterViewInit {
                     label: {
                         connectorAllowed: false
                     },
-                    pointStart: 2010
+                    pointStart: 2007
                 }
             },
-            series: [{
-                type: 'line',
-                name: 'Installation',
-                data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-            }],
+            series: this.Data,
 
             responsive: {
                 rules: [{
@@ -68,10 +123,8 @@ export class AllocationsComponent implements OnInit, AfterViewInit {
                     }
                 }]
             }
-        });
-
-
-        Highcharts.chart('investment-container', {
+        }
+        const pieOptions: Highcharts.Options = {
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -101,117 +154,65 @@ export class AllocationsComponent implements OnInit, AfterViewInit {
                 type: 'pie',
                 name: 'Brands',
                 colorByPoint: true,
-                data: [{
-                    name: 'MSFT',
-                    y: 61.41,
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'TXN',
-                    y: 11.84
-                }, {
-                    name: 'ABBV',
-                    y: 10.85
-                }, {
-                    name: 'GOOGLE',
-                    y: 4.67
-                }]
+                data: null
             }]
-        });
-    }
+        }
 
+        this.ob1 = Highcharts.chart('return-container', lineOptions);
+        this.ob2 = Highcharts.chart('investment-container', pieOptions);
+        this.ob3 = Highcharts.chart('min-var-Pie', pieOptions);
+        this.ob4 = Highcharts.chart('sharpe-Pie', pieOptions);
+
+    }
 
     formatLabel(value: number | null) {
         if (!value) {
           return 0;
         }
-    
-        if (value >= 1000) {
-          return Math.round(value / 1000) + 'k';
+        if (value >= 100) {
+          return Math.round(value / 100) + 'k';
         }
-    
         return value;
-      }
+    }
 
+    submit() {
+        console.log(this.numStock)
+        this.authService.getSuggestion(this.numStock).subscribe(data => {
+            console.log(data);
+            this.min_var_portfolio = [];
+            this.sharp_portfolio = [];
+            console.log(this.min_var_portfolio);
 
+            this.min_var_portfolio1 = [];
+            this.sharp_portfolio1 = [];
 
+            for (var key in data['minVaPoTicker']) {
+                if (data['minVaPoTicker'].hasOwnProperty(key)) {
+                    this.min_var_portfolio1.push({'item': key, 'val': data['minVaPoTicker'][key]});
+                }
+            }
 
+            for (var key in data['SharpPoTicker']) {
+                if (data['SharpPoTicker'].hasOwnProperty(key)) {
+                    this.sharp_portfolio1.push({'item': key, 'val': data['SharpPoTicker'][key]});
+                }
+            }
 
+            for (var key in data['minVaPo']) {
+                if (data['minVaPo'].hasOwnProperty(key)) {
+                    this.min_var_portfolio.push({name: key, y: data['minVaPo'][key]});
+                }
+            }
 
+            for (var key in data['SharpPo']) {
+                if (data['SharpPo'].hasOwnProperty(key)) {
+                    this.sharp_portfolio.push({name: key, y: data['SharpPo'][key]});
+                }
+            }
+            this.ob3.addSeries({type: 'pie', name: 'share', data: this.min_var_portfolio});
+            this.ob4.addSeries({type: 'pie', name: 'share', data: this.sharp_portfolio});
 
+        });
 
-
-    // public ngAfterViewInit(): void {
-    //     // get the context
-    //     const canvasE1: HTMLCanvasElement = this.canvas.nativeElement;
-    //     this.cx = canvasE1.getContext('2d');
-    //     // set the width and height
-    //     canvasE1.width = this.width;
-    //     canvasE1.height = this.height;
-    //     // set some default properties about the line
-    //     this.cx.lineWidth = 3;
-    //     this.cx.lineCap = 'round';
-    //     this.cx.strokeStyle = '#000';
-    //     this.captureEvents(canvasE1);
-    // }
-
-    // private captureEvents(canvasE1: HTMLCanvasElement) {
-    // // this will capture all mousedown events from the canvas elements
-    //     fromEvent(canvasE1, 'mousedown')
-    //         .pipe(
-    //             switchMap((e) => {
-    //                 // after a mouse down, we'll record all mouse moves
-    //         return fromEvent(canvasE1, 'mousemove')
-    //             .pipe(
-    //                 // we'll stop (and unsubscribe) once the user release the mouse
-    //                 // this will trigger a 'mouseup' event
-    //                 takeUntil(fromEvent(canvasE1, 'mouseup')),
-    //                 // we'll also stop (and unsubscribe) once the mouse leaves the canvas (mouse leave event)
-    //                 takeUntil(fromEvent(canvasE1, 'mouseleave')),
-    //                 // pairwise lets us get the previous value to draw a line from
-    //                 // the previous point to the current point
-    //                 pairwise()
-    //             );
-    //         })
-    //     ).subscribe((res: [MouseEvent, MouseEvent]) => {
-    //         const rect = canvasE1.getBoundingClientRect();
-
-    //         // previous and current position with the offset
-    //         const prevPos = {
-    //             x: res[0].clientX - rect.left,
-    //             y: res[0].clientY - rect.top
-    //         };
-    //         const currentPos = {
-    //             x: res[1].clientX - rect.left,
-    //             y: res[1].clientY - rect.top
-    //         };
-    //         // this methods we'll implement soon to so the actual drawing
-    //         this.drawOnCanvas(prevPos, currentPos);
-    //     });
-    // }
-    // private drawOnCanvas(
-    //     prevPos: { x: number, y: number },
-    //     currentPos: { x: number, y: number }
-    // ) {
-    //     // in case the context is not set
-    //     if (!this.cx) {
-    //         return;
-    //     }
-
-    //     // start our drawing path
-    //     this.cx.beginPath();
-
-    //     // we're drawing lines so we need a previous position
-    //     if (prevPos) {
-    //         // sets the start point
-    //         this.cx.moveTo(prevPos.x, prevPos.y); // from
-
-    //         // draws a line from the start pos until the current position
-    //         this.cx.lineTo(currentPos.x, currentPos.y);
-
-    //         // strokes the current path with the styles we set earlier
-    //         this.cx.stroke();
-    //     }
-
-    // }
+    }
 }

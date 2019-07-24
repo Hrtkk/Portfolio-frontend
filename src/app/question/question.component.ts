@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { QuestionBase } from '../models/data';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-question',
@@ -9,12 +9,25 @@ import { FormGroup } from '@angular/forms';
 })
 export class QuestionComponent implements OnInit {
 
+  // selected: number
   @Input() question: QuestionBase<any>;
   @Input() form: FormGroup;
-  get isValid() { return this.form.controls[this.question.key].valid; }
-  constructor() { }
+  @Input() selected: number;
+  
+
+  val = new FormControl(this.selected);
+  constructor() {
+    // this.form = new FormGroup({
+    //   question.key: new FormControl()
+  
+    // });
+   }
 
   ngOnInit() {
+  //   this.form = new FormGroup({
+  //     question.key: new FormControl();
+  //  });
+    
   }
 
 }
